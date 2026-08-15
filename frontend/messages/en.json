@@ -1,0 +1,100 @@
+{
+  "HomePage": {
+    "title": "Player Analysis Platform",
+    "description": "Premium analytics and insights for modern coaches.",
+    "login": "Log In",
+    "adminLogin": "Admin Log In",
+    "viewTournament": "View Tournament Bracket"
+  },
+  "ChemistryPage": {
+    "title": "Team Chemistry 🧬",
+    "subtitle": "Drag and drop player photos to reveal their tactical links and conflicts. Click on a line to change the chemistry status.",
+    "strongSynergy": "Strong Synergy",
+    "tacticalConflict": "Tactical Conflict",
+    "neutralLink": "Neutral Link"
+  },
+  "ComparePage": {
+    "title": "Comparison Engine",
+    "subtitle": "Head-to-head tactical and statistical player analysis.",
+    "playerA": "Player A (Blue)",
+    "playerB": "Player B (Red)",
+    "aiVerdict": "🧠 AI Scouting Verdict",
+    "saveComparison": "Save Comparison",
+    "shareToStaff": "Share to Staff"
+  },
+  "TournamentPage": {
+    "title": "Ukrainian Cup Bracket 🏆",
+    "subtitle": "Live updates for the tournament progression.",
+    "quarterfinals": "Quarterfinals",
+    "semifinals": "Semifinals",
+    "final": "Final",
+    "winner": "Winner"
+  },
+  "TacticsPage": {
+    "title": "Tactical Stadium View",
+    "subtitle": "Manage the full squad, bench, and staff.",
+    "save": "Save Match Setup",
+    "savedAlert": "Formation saved to database!",
+    "ourTeam": "Our Team (Dynamo)",
+    "opponent": "Opponent (Shakhtar)",
+    "techArea": "Technical Area (Coach)",
+    "bench": "Substitutes Bench",
+    "back": "Back to Dashboard"
+  },
+  "ReportsPage": {
+    "title": "Match Reports",
+    "subtitle": "AI-generated tactical and statistical post-match summaries.",
+    "noActive": "No active report",
+    "selectRecent": "Select a recent match to generate an AI report.",
+    "generate": "✨ Generate AI Report",
+    "analyzing": "Analyzing Match Data...",
+    "compiling": "Compiling xG, tracking data, and video events.",
+    "matchLabel": "Match",
+    "finalScoreLabel": "Final Score",
+    "xgLabel": "Expected Goals (xG)",
+    "possessionLabel": "Possession",
+    "strengths": "Key Strengths",
+    "vulnerabilities": "Vulnerabilities",
+    "aiVerdict": "🧠 AI Tactical Verdict",
+    "topPerformer": "⭐ Top Performer",
+    "rating": "Match Rating:",
+    "reset": "Reset Report",
+    "export": "📥 Export as PDF"
+  },
+  "Navigation": {
+    "back": "Back"
+  },
+
+  "CoachDashboard": {
+    "title": "Coach Dashboard",
+    "subtitle": "Welcome to your workspace.",
+    "liveMatch": "🔴 LIVE MATCH",
+    "videoAi": "🎥 Video AI",
+    "tactics": "♟️ Tactics",
+    "reports": "📊 Reports",
+    "compare": "⚔️ Compare",
+    "transfers": "💰 Transfers AI",
+    "opponent": "🕵️ Opponent Plan",
+    "chemistry": "🧬 Chemistry",
+    "medical": "🏥 Medical Hub",
+    "scouting": "🌍 Global Scouting",
+    "academy": "👶 Academy Hub",
+    "training": "📅 Training AI",
+    "contracts": "💼 Contracts",
+    "finance": "📈 Finance",
+    "media": "📰 Media Sentiment",
+    "replay3d": "🏟️ 3D Replay",
+    "playerApp": "📱 Player App",
+    "fanApp": "🎟️ Fan App",
+    "fieldScout": "🕵️ Field Scout App",
+    "ownerDash": "👔 Owner Dashboard",
+    "tvBroadcast": "📺 TV Broadcaster",
+    "parentsPortal": "👨‍👩‍👦 Parents Portal"
+  },
+  "PlayerManager": {
+    "yourPlayers": "Your Players",
+    "loading": "Loading players...",
+    "noPlayers": "No players added yet.",
+    "delete": "Delete"
+  }
+}
