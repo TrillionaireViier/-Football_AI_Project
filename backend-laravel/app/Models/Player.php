@@ -16,6 +16,12 @@ class Player extends Model
         'number',
         'age',
         'rating',
-        'photoUrl'
+        'photoUrl',
+        'team_id'
     ];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

@@ -5,6 +5,7 @@ import {routing} from '@/i18n/routing';
 import '../globals.css';
 
 import { PlayerProvider } from '@/context/PlayerContext';
+import { AuthProvider } from '@/context/AuthContext';
 import TopNav from '@/components/TopNav';
 
 export default async function LocaleLayout({
@@ -26,10 +27,12 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <PlayerProvider>
-            <TopNav />
-            {children}
-          </PlayerProvider>
+          <AuthProvider>
+            <PlayerProvider>
+              <TopNav />
+              {children}
+            </PlayerProvider>
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

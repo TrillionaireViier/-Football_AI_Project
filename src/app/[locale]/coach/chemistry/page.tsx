@@ -104,17 +104,35 @@ export default function ChemistryPage() {
     );
   };
 
+  const [scale, setScale] = useState(1);
+
+  const handleZoomIn = () => setScale(prev => Math.min(3, prev + 0.2));
+  const handleZoomOut = () => setScale(prev => Math.max(0.5, prev - 0.2));
+
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <h1 className="title" style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{t('title')}</h1>
       <p className="subtitle">{t('subtitle')}</p>
 
-      <div className="glass-panel" style={{ marginTop: '2rem' }}>
+      <div className="glass-panel" style={{ marginTop: '2rem', position: 'relative' }}>
+        
+        {/* Zoom Controls */}
+        <div style={{ position: 'absolute', right: '1rem', top: '1rem', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <button 
+            onClick={handleZoomIn} 
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', width: '36px', height: '36px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', backdropFilter: 'blur(4px)' }}
+          >
+            +
+          </button>
+          <button 
+            onClick={handleZoomOut} 
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', width: '36px', height: '36px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', backdropFilter: 'blur(4px)' }}
+          >
+            -
+          </button>
+        </div>
+
         <div 
-          ref={boardRef}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
           style={{
             position: 'relative',
             width: '100%',
@@ -124,47 +142,68 @@ export default function ChemistryPage() {
             borderRadius: '12px',
             overflow: 'hidden'
           }}
+          onWheel={(e) => {
+            // Optional: adjust scale on wheel
+            setScale(prev => Math.min(Math.max(0.5, prev - e.deltaY * 0.002), 3));
+          }}
         >
-          {/* Draw Lines - dynamically between all players */}
-          {localPlayers.map((p1, i) => 
-            localPlayers.slice(i + 1).map(p2 => renderLine(p1, p2))
-          )}
+          <div
+            ref={boardRef}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              transform: `scale(${scale})`,
+              transformOrigin: 'center center',
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
+            {/* Draw Lines - dynamically between all players */}
+            {localPlayers.map((p1, i) => 
+              localPlayers.slice(i + 1).map(p2 => renderLine(p1, p2))
+            )}
 
-          {/* Draw Players */}
-          {localPlayers.map(player => (
-            <div
-              key={player.id}
-              onMouseDown={(e) => { e.preventDefault(); handleMouseDown(player.id); }}
-              style={{
-                position: 'absolute',
-                left: `${player.x}%`,
-                top: `${player.y}%`,
-                transform: 'translate(-50%, -50%)',
-                cursor: draggingId === player.id ? 'grabbing' : 'grab',
-                zIndex: draggingId === player.id ? 10 : 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
-            >
-              <img 
-                src={player.photoUrl} 
-                alt={player.name} 
+            {/* Draw Players */}
+            {localPlayers.map(player => (
+              <div
+                key={player.id}
+                onMouseDown={(e) => { e.preventDefault(); handleMouseDown(player.id); }}
                 style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '50%',
-                  border: '3px solid white',
-                  boxShadow: '0 4px 10px rgba(0,0,0,0.5)',
-                  pointerEvents: 'none'
+                  position: 'absolute',
+                  left: `${player.x}%`,
+                  top: `${player.y}%`,
+                  transform: 'translate(-50%, -50%)',
+                  cursor: draggingId === player.id ? 'grabbing' : 'grab',
+                  zIndex: draggingId === player.id ? 10 : 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '0.5rem'
                 }}
-              />
-              <span style={{ background: 'rgba(0,0,0,0.7)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
-                {player.name}
-              </span>
-            </div>
-          ))}
+              >
+                <img 
+                  src={player.photoUrl} 
+                  alt={player.name} 
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    borderRadius: '50%',
+                    border: '3px solid white',
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.5)',
+                    pointerEvents: 'none'
+                  }}
+                />
+                <span style={{ background: 'rgba(0,0,0,0.7)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
+                  {player.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
         
         <div style={{ marginTop: '2rem', display: 'flex', gap: '2rem', justifyContent: 'center' }}>

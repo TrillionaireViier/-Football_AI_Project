@@ -52,6 +52,7 @@ export default function TacticsPage() {
 
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [selectedCoach, setSelectedCoach] = useState('Oleksandr Shovkovskyi');
+  const [showToast, setShowToast] = useState(false);
   const stadiumRef = useRef<HTMLDivElement>(null);
   const t = useTranslations('TacticsPage');
 
@@ -85,7 +86,15 @@ export default function TacticsPage() {
           <h1 className="title" style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', marginBottom: '0.5rem' }}>{t('title')}</h1>
           <p className="subtitle">{t('subtitle')}</p>
         </div>
-        <button className="btn-primary" onClick={() => alert(t('savedAlert'))}>{t('save')}</button>
+        <button 
+          className="btn-primary" 
+          onClick={() => {
+            setShowToast(true);
+            setTimeout(() => setShowToast(false), 3000);
+          }}
+        >
+          {t('save')}
+        </button>
       </div>
 
       {/* Legend */}
@@ -247,6 +256,37 @@ export default function TacticsPage() {
           </div>
         ))}
       </div>
+
+      {showToast && (
+        <>
+          <style>{`
+            @keyframes slideInUp {
+              from { transform: translateY(100%); opacity: 0; }
+              to { transform: translateY(0); opacity: 1; }
+            }
+          `}</style>
+          <div style={{
+            position: 'fixed',
+            bottom: '2rem',
+            right: '2rem',
+            background: '#10b981',
+            color: 'white',
+            padding: '1rem 2rem',
+            borderRadius: '8px',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            zIndex: 9999,
+            animation: 'slideInUp 0.3s ease-out forwards',
+            fontFamily: 'system-ui, -apple-system, sans-serif'
+          }}>
+            <span style={{ fontSize: '1.2rem' }}>✅</span>
+            <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>{t('savedAlert')}</span>
+          </div>
+        </>
+      )}
+
     </div>
   );
 }

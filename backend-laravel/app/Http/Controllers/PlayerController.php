@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Player::all());
+        $query = Player::query();
+        if ($request->has('team_id')) {
+            $query->where('team_id', $request->team_id);
+        }
+        return response()->json($query->get());
     }
 
     public function store(Request $request)
@@ -23,6 +27,7 @@ class PlayerController extends Controller
             'age' => 'nullable|integer',
             'rating' => 'nullable|integer',
             'photoUrl' => 'nullable|string',
+            'team_id' => 'nullable|exists:teams,id',
         ]);
 
         $player = Player::create($validated);

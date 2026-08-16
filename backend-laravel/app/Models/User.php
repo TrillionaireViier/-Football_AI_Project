@@ -21,7 +21,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'team_id',
+        'player_id',
     ];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function player()
+    {
+        return $this->belongsTo(Player::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
