@@ -50,6 +50,20 @@ export default function ComparePage() {
     'Mykhailo Mudryk': [95, 76, 75, 88, 40, 65]
   };
 
+  const playerDescriptionsUk: Record<string, string> = {
+    'Mykola Shaparenko': 'пропонує чудову розбудову гри та технічне просування. Він найкраще підходить для системи, заснованої на володінні м\'ячем, де він може диктувати темп в останній третині.',
+    'Volodymyr Brazhko': 'відмінно діє у відборі м\'яча та фізичних єдиноборствах. Він забезпечує чудову опору в захисті, дозволяючи більш креативним гравцям йти вперед без ризику для лінії оборони.',
+    'Andriy Yarmolenko': 'має величезний досвід та відмінне бачення поля. Його здатність зміщуватися в центр та пробивати або віддавати загострюючі передачі робить його ключовим в атаці.',
+    'Mykhailo Mudryk': 'забезпечує неймовірну вибухову швидкість на фланзі. Він ідеально підходить для контратак та здатен самостійно зламати захист суперника завдяки феноменальному дриблінгу.'
+  };
+
+  const playerDescriptionsEn: Record<string, string> = {
+    'Mykola Shaparenko': 'offers superior playmaking and technical progression. He is best suited for a possession-based system where he can dictate the tempo in the final third.',
+    'Volodymyr Brazhko': 'excels in ball recovery and physical duels. He provides an excellent defensive anchor, allowing more creative players to push forward without exposing the backline.',
+    'Andriy Yarmolenko': 'brings massive experience and excellent vision. His ability to cut inside to shoot or play killer passes makes him a key offensive asset.',
+    'Mykhailo Mudryk': 'provides incredible explosive speed on the wing. He is perfect for counter-attacks and can single-handedly break down defenses with his phenomenal dribbling.'
+  };
+
   const datasets: RadarDataset[] = [
     {
       label: playerA,
@@ -115,13 +129,13 @@ export default function ComparePage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <p style={{ color: '#e2e8f0', lineHeight: '1.6' }}>
                 <strong style={{ color: '#60a5fa' }}>{playerA}</strong> {locale === 'uk' 
-                  ? 'пропонує чудову розбудову гри та технічне просування. Він найкраще підходить для системи, заснованої на володінні м\'ячем, де він може диктувати темп в останній третині.'
-                  : 'offers superior playmaking and technical progression. He is best suited for a possession-based system where he can dictate the tempo in the final third.'}
+                  ? playerDescriptionsUk[playerA] || 'це універсальний гравець з хорошим потенціалом для росту.'
+                  : playerDescriptionsEn[playerA] || 'is a versatile player with good potential for growth.'}
               </p>
               <p style={{ color: '#e2e8f0', lineHeight: '1.6' }}>
                 <strong style={{ color: '#fca5a5' }}>{playerB}</strong> {locale === 'uk'
-                  ? 'відмінно діє у відборі м\'яча та фізичних єдиноборствах. Він забезпечує чудову опору в захисті, дозволяючи більш креативним гравцям йти вперед без ризику для лінії оборони.'
-                  : 'excels in ball recovery and physical duels. He provides an excellent defensive anchor, allowing more creative players to push forward without exposing the backline.'}
+                  ? playerDescriptionsUk[playerB] || 'надійний футболіст, що виконує багато чорнової роботи на полі.'
+                  : playerDescriptionsEn[playerB] || 'is a reliable player who does a lot of the dirty work on the pitch.'}
               </p>
             </div>
           </div>
