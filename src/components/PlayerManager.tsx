@@ -9,6 +9,7 @@ export default function PlayerManager() {
   const { players, deletePlayer, addPlayer } = usePlayers();
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState('Динамо Київ');
+  const [showToast, setShowToast] = useState(false);
 
   const handleAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +23,8 @@ export default function PlayerManager() {
     };
     addPlayer(newPlayer);
     setShowAddForm(false);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   const filteredPlayers = players.filter(p => !p.team || p.team === selectedTeam);
@@ -92,6 +95,36 @@ export default function PlayerManager() {
             </li>
           ))}
         </ul>
+      )}
+
+      {showToast && (
+        <>
+          <style>{`
+            @keyframes slideInUp {
+              from { transform: translateY(100%); opacity: 0; }
+              to { transform: translateY(0); opacity: 1; }
+            }
+          `}</style>
+          <div style={{
+            position: 'fixed',
+            bottom: '2rem',
+            right: '2rem',
+            background: '#10b981',
+            color: 'white',
+            padding: '1rem 2rem',
+            borderRadius: '8px',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            zIndex: 9999,
+            animation: 'slideInUp 0.3s ease-out forwards',
+            fontFamily: 'system-ui, -apple-system, sans-serif'
+          }}>
+            <span style={{ fontSize: '1.2rem' }}>✅</span>
+            <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>Гравця успішно додано!</span>
+          </div>
+        </>
       )}
     </div>
   );
