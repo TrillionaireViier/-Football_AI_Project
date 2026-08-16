@@ -5,11 +5,11 @@ export default function TrainingPlannerPage() {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const [schedule, setSchedule] = useState<any>({
-    Понеділок: { type: 'Відновлення', intensity: 'Низька', focus: 'Легкий біг та кріотерапія' },
-    Вівторок: { type: 'Тактика', intensity: 'Середня', focus: "Вправи на утримання м'яча та розстановка" },
-    Середа: { type: 'Фізична', intensity: 'Висока', focus: 'Спринти та тренування пресингу' },
-    Четвер: { type: 'Тактика', intensity: 'Середня', focus: 'Стандартні положення (Захист)' },
-    П'ятниця: { type: 'Підготовка до матчу', intensity: 'Низька', focus: 'Тіньова гра та фінальні інструкції' },
+    "Понеділок": { type: 'Відновлення', intensity: 'Низька', focus: 'Легкий біг, розтяжка, масаж' },
+    "Вівторок": { type: 'Техніка', intensity: 'Середня', focus: 'Контроль м\'яча, паси в русі, удари по воротах' },
+    "Середа": { type: 'Фізична', intensity: 'Висока', focus: 'Спринти та тренування пресингу (4v2)' },
+    "Четвер": { type: 'Тактика', intensity: 'Середня', focus: 'Стандартні положення (Захист)' },
+    "П'ятниця": { type: 'Підготовка до матчу', intensity: 'Низька', focus: 'Тіньова гра та фокус на супернику' },
   });
 
   const handleGenerate = () => {
