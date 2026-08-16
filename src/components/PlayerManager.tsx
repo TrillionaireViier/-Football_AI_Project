@@ -1,58 +1,94 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Player, getPlayers, addPlayer, deletePlayer } from '@/lib/laravel/playerService';
+import { useState } from 'react';
+import { usePlayers } from '@/context/PlayerContext';
 import { useTranslations } from 'next-intl';
 
 export default function PlayerManager() {
   const t = useTranslations('PlayerManager');
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { players, deletePlayer, addPlayer } = usePlayers();
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState('Динамо Київ');
 
-  useEffect(() => {
-    fetchPlayers();
-  }, []);
-
-  const fetchPlayers = async () => {
-    try {
-      setLoading(true);
-      const data = await getPlayers();
-      setPlayers(data);
-    } catch (error) {
-      console.error("Firebase error, possibly missing keys:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as any;
+    const newPlayer = {
+      name: `${target.firstName.value} ${target.lastName.value}`,
+      position: target.position.value,
+      number: parseInt(target.number.value) || 0,
+      photoUrl: `https://ui-avatars.com/api/?name=${target.firstName.value}+${target.lastName.value}&background=3b82f6&color=fff`,
+      team: selectedTeam,
+    };
+    addPlayer(newPlayer);
+    setShowAddForm(false);
   };
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deletePlayer(id);
-      setPlayers(players.filter(p => p.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const filteredPlayers = players.filter(p => !p.team || p.team === selectedTeam);
 
   return (
-    <div className="glass-panel">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="glass-panel" style={{ marginTop: '2rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <h2>{t('yourPlayers')}</h2>
+        
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <select 
+            value={selectedTeam} 
+            onChange={(e) => setSelectedTeam(e.target.value)}
+            style={{
+              padding: '0.5rem',
+              borderRadius: '8px',
+              border: '1px solid var(--surface-border)',
+              background: 'rgba(0,0,0,0.2)',
+              color: 'white',
+              outline: 'none',
+            }}
+          >
+            <option value="Динамо Київ">Динамо Київ</option>
+            <option value="Шахтар Донецьк">Шахтар Донецьк</option>
+            <option value="Збірна України">Збірна України</option>
+          </select>
+          <button 
+            className="btn-primary" 
+            onClick={() => setShowAddForm(!showAddForm)}
+          >
+            {showAddForm ? t('cancel') : t('addPlayer')}
+          </button>
+        </div>
       </div>
 
-      {loading ? (
-        <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>{t('loading')}</p>
-      ) : players.length === 0 ? (
+      {showAddForm && (
+        <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+          <form style={{ display: 'grid', gap: '1rem', maxWidth: '500px' }} onSubmit={handleAddSubmit}>
+            <input type="text" name="firstName" placeholder={t('firstName')} style={inputStyle} required />
+            <input type="text" name="lastName" placeholder={t('lastName')} style={inputStyle} required />
+            <select name="position" style={inputStyle} required>
+              <option value="">{t('position')}...</option>
+              <option value="Forward">Нападник (Forward)</option>
+              <option value="Midfielder">Півзахисник (Midfielder)</option>
+              <option value="Defender">Захисник (Defender)</option>
+              <option value="Goalkeeper">Воротар (Goalkeeper)</option>
+            </select>
+            <input type="number" name="number" placeholder="Номер футболки" style={inputStyle} required />
+            <button type="submit" className="btn-primary">{t('save')}</button>
+          </form>
+        </div>
+      )}
+
+      {filteredPlayers.length === 0 ? (
         <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>{t('noPlayers')}</p>
       ) : (
         <ul style={{ marginTop: '1rem', listStyle: 'none', padding: 0 }}>
-          {players.map(p => (
+          {filteredPlayers.map(p => (
             <li key={p.id} style={{ padding: '1rem', borderBottom: '1px solid var(--surface-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <strong>{p.firstName} {p.lastName}</strong> - {p.position}
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>Вік: {p.age} | Рейтинг: {p.rating}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <img src={p.photoUrl} alt={p.name} style={{ width: 40, height: 40, borderRadius: '50%' }} />
+                <div>
+                  <strong>{p.name}</strong> - {p.position}
+                  <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>Футболка #{p.number || 'N/A'}</div>
+                </div>
               </div>
-              <button onClick={() => p.id && handleDelete(String(p.id))} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer' }}>{t('delete')}</button>
+              <button onClick={() => p.id && deletePlayer(String(p.id))} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer' }}>{t('delete')}</button>
             </li>
           ))}
         </ul>
@@ -60,3 +96,13 @@ export default function PlayerManager() {
     </div>
   );
 }
+
+const inputStyle = {
+  padding: '0.75rem',
+  borderRadius: '8px',
+  border: '1px solid var(--surface-border)',
+  background: 'rgba(0,0,0,0.4)',
+  color: 'white',
+  fontSize: '1rem',
+  outline: 'none',
+};

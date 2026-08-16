@@ -10,6 +10,7 @@ export interface Player {
   number?: number;
   x?: number; // For chemistry board
   y?: number; // For chemistry board
+  team?: string;
 }
 
 interface PlayerContextType {
@@ -20,17 +21,17 @@ interface PlayerContextType {
 }
 
 const defaultPlayers: Player[] = [
-  { id: '1', name: 'M. Shaparenko', position: 'Midfielder', number: 10, photoUrl: 'https://ui-avatars.com/api/?name=Shaparenko&background=3b82f6&color=fff', x: 30, y: 40 },
-  { id: '2', name: 'V. Brazhko', position: 'Midfielder', number: 6, photoUrl: 'https://ui-avatars.com/api/?name=Brazhko&background=3b82f6&color=fff', x: 70, y: 40 },
-  { id: '3', name: 'A. Yarmolenko', position: 'Forward', number: 7, photoUrl: 'https://ui-avatars.com/api/?name=Yarmolenko&background=3b82f6&color=fff', x: 80, y: 70 },
-  { id: '4', name: 'G. Bushchan', position: 'Goalkeeper', number: 1, photoUrl: 'https://ui-avatars.com/api/?name=Bushchan&background=10b981&color=fff', x: 50, y: 10 },
-  { id: '5', name: 'O. Tymchyk', position: 'Defender', number: 24, photoUrl: 'https://ui-avatars.com/api/?name=Tymchyk&background=3b82f6&color=fff', x: 90, y: 25 },
-  { id: '6', name: 'I. Zabarnyi', position: 'Defender', number: 13, photoUrl: 'https://ui-avatars.com/api/?name=Zabarnyi&background=3b82f6&color=fff', x: 65, y: 20 },
-  { id: '7', name: 'M. Matviyenko', position: 'Defender', number: 22, photoUrl: 'https://ui-avatars.com/api/?name=Matviyenko&background=3b82f6&color=fff', x: 35, y: 20 },
-  { id: '8', name: 'V. Mykolenko', position: 'Defender', number: 16, photoUrl: 'https://ui-avatars.com/api/?name=Mykolenko&background=3b82f6&color=fff', x: 10, y: 25 },
-  { id: '9', name: 'T. Stepanenko', position: 'Midfielder', number: 21, photoUrl: 'https://ui-avatars.com/api/?name=Stepanenko&background=3b82f6&color=fff', x: 50, y: 35 },
-  { id: '10', name: 'M. Mudryk', position: 'Forward', number: 10, photoUrl: 'https://ui-avatars.com/api/?name=Mudryk&background=3b82f6&color=fff', x: 20, y: 70 },
-  { id: '11', name: 'A. Dovbyk', position: 'Forward', number: 11, photoUrl: 'https://ui-avatars.com/api/?name=Dovbyk&background=3b82f6&color=fff', x: 50, y: 85 }
+  { id: '1', name: 'M. Shaparenko', position: 'Midfielder', number: 10, photoUrl: 'https://ui-avatars.com/api/?name=Shaparenko&background=3b82f6&color=fff', x: 30, y: 40, team: 'Динамо Київ' },
+  { id: '2', name: 'V. Brazhko', position: 'Midfielder', number: 6, photoUrl: 'https://ui-avatars.com/api/?name=Brazhko&background=3b82f6&color=fff', x: 70, y: 40, team: 'Динамо Київ' },
+  { id: '3', name: 'A. Yarmolenko', position: 'Forward', number: 7, photoUrl: 'https://ui-avatars.com/api/?name=Yarmolenko&background=3b82f6&color=fff', x: 80, y: 70, team: 'Динамо Київ' },
+  { id: '4', name: 'G. Bushchan', position: 'Goalkeeper', number: 1, photoUrl: 'https://ui-avatars.com/api/?name=Bushchan&background=10b981&color=fff', x: 50, y: 10, team: 'Динамо Київ' },
+  { id: '5', name: 'O. Tymchyk', position: 'Defender', number: 24, photoUrl: 'https://ui-avatars.com/api/?name=Tymchyk&background=3b82f6&color=fff', x: 90, y: 25, team: 'Динамо Київ' },
+  { id: '6', name: 'I. Zabarnyi', position: 'Defender', number: 13, photoUrl: 'https://ui-avatars.com/api/?name=Zabarnyi&background=3b82f6&color=fff', x: 65, y: 20, team: 'Динамо Київ' },
+  { id: '7', name: 'M. Matviyenko', position: 'Defender', number: 22, photoUrl: 'https://ui-avatars.com/api/?name=Matviyenko&background=3b82f6&color=fff', x: 35, y: 20, team: 'Шахтар Донецьк' },
+  { id: '8', name: 'V. Mykolenko', position: 'Defender', number: 16, photoUrl: 'https://ui-avatars.com/api/?name=Mykolenko&background=3b82f6&color=fff', x: 10, y: 25, team: 'Збірна України' },
+  { id: '9', name: 'T. Stepanenko', position: 'Midfielder', number: 21, photoUrl: 'https://ui-avatars.com/api/?name=Stepanenko&background=3b82f6&color=fff', x: 50, y: 35, team: 'Шахтар Донецьк' },
+  { id: '10', name: 'M. Mudryk', position: 'Forward', number: 10, photoUrl: 'https://ui-avatars.com/api/?name=Mudryk&background=3b82f6&color=fff', x: 20, y: 70, team: 'Збірна України' },
+  { id: '11', name: 'A. Dovbyk', position: 'Forward', number: 11, photoUrl: 'https://ui-avatars.com/api/?name=Dovbyk&background=3b82f6&color=fff', x: 50, y: 85, team: 'Збірна України' }
 ];
 
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
@@ -51,7 +52,9 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
           if (res.ok) {
             const data = await res.json();
             if (data.length > 0) {
-              setPlayers(data);
+              setPlayers(data.map((p: any) => ({ ...p, team: p.team || user.team_id })));
+            } else if (data && !Array.isArray(data)) {
+               // In case API returns something else, ignore
             }
           }
         } catch (e) {
