@@ -52,7 +52,7 @@ export default function PlayerManager() {
                 <strong>{p.firstName} {p.lastName}</strong> - {p.position}
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>Вік: {p.age} | Рейтинг: {p.rating}</div>
               </div>
-              <button onClick={() => p.id && handleDelete(p.id)} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer' }}>{t('delete')}</button>
+              <button onClick={() => p.id && handleDelete(String(p.id))} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer' }}>{t('delete')}</button>
             </li>
           ))}
         </ul>
