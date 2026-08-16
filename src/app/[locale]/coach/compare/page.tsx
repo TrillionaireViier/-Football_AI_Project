@@ -8,6 +8,8 @@ export default function ComparePage() {
   const locale = useLocale();
   const [playerA, setPlayerA] = useState('Mykola Shaparenko');
   const [playerB, setPlayerB] = useState('Volodymyr Brazhko');
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleShare = async () => {
     try {
@@ -19,15 +21,21 @@ export default function ComparePage() {
         });
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        alert(locale === 'uk' ? 'Посилання скопійовано в буфер обміну!' : 'Link copied to clipboard!');
+        setToastMessage(locale === 'uk' ? 'Посилання скопійовано в буфер обміну!' : 'Link copied to clipboard!');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
       }
     } catch (err) {
       console.log('Share failed:', err);
       try {
         await navigator.clipboard.writeText(window.location.href);
-        alert(locale === 'uk' ? 'Посилання скопійовано в буфер обміну!' : 'Link copied to clipboard!');
+        setToastMessage(locale === 'uk' ? 'Посилання скопійовано в буфер обміну!' : 'Link copied to clipboard!');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
       } catch (clipboardErr) {
-        alert(locale === 'uk' ? 'Не вдалося поділитися посиланням.' : 'Failed to share or copy link.');
+        setToastMessage(locale === 'uk' ? 'Не вдалося поділитися посиланням.' : 'Failed to share or copy link.');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
       }
     }
   };
@@ -124,6 +132,36 @@ export default function ComparePage() {
           </div>
         </div>
       </div>
+
+      {showToast && (
+        <>
+          <style>{`
+            @keyframes slideInUp {
+              from { transform: translateY(100%); opacity: 0; }
+              to { transform: translateY(0); opacity: 1; }
+            }
+          `}</style>
+          <div style={{
+            position: 'fixed',
+            bottom: '2rem',
+            right: '2rem',
+            background: '#10b981',
+            color: 'white',
+            padding: '1rem 2rem',
+            borderRadius: '8px',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            zIndex: 9999,
+            animation: 'slideInUp 0.3s ease-out forwards',
+            fontFamily: 'system-ui, -apple-system, sans-serif'
+          }}>
+            <span style={{ fontSize: '1.2rem' }}>✅</span>
+            <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>{toastMessage}</span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
