@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Papa from 'papaparse';
 
-export default function CsvImporter({ onImport }: { onImport: (data: any[]) => void }) {
+export default function CsvImporter({ onImport }: { onImport: (data: unknown[]) => void }) {
   const [error, setError] = useState('');
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

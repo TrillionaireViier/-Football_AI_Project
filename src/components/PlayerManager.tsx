@@ -12,12 +12,12 @@ export default function PlayerManager() {
 
   const handleAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const target = e.target as any;
+    const formData = new FormData(e.currentTarget);
     const newPlayer = {
-      name: `${target.firstName.value} ${target.lastName.value}`,
-      position: target.position.value,
-      number: parseInt(target.number.value) || 0,
-      photoUrl: `https://ui-avatars.com/api/?name=${target.firstName.value}+${target.lastName.value}&background=3b82f6&color=fff`,
+      name: `${formData.get('firstName')} ${formData.get('lastName')}`,
+      position: formData.get('position') as string,
+      number: parseInt(formData.get('number') as string) || 0,
+      photoUrl: `https://ui-avatars.com/api/?name=${formData.get('firstName')}+${formData.get('lastName')}&background=3b82f6&color=fff`,
       team: selectedTeam,
     };
     addPlayer(newPlayer);

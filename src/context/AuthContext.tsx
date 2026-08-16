@@ -10,7 +10,7 @@ interface User {
   role: 'coach' | 'player' | 'parent';
   team_id?: number | null;
   player_id?: number | null;
-  team?: any;
+  team?: unknown;
 }
 
 interface AuthContextType {
@@ -30,14 +30,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    let mounted = true;
     const storedToken = localStorage.getItem('auth_token');
     const storedUser = localStorage.getItem('auth_user');
 
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+    if (storedToken && storedUser && mounted) {
+      setTimeout(() => {
+        setToken(storedToken);
+        setUser(JSON.parse(storedUser));
+        setIsLoading(false);
+      }, 0);
+    } else if (mounted) {
+      setTimeout(() => setIsLoading(false), 0);
     }
-    setIsLoading(false);
+    return () => { mounted = false; };
   }, []);
 
   const login = (newToken: string, newUser: User) => {

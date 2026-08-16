@@ -47,6 +47,33 @@ const MatchCard = ({ match }: { match: Match }) => {
   );
 };
 
+const Connector = ({ isLast = false, isLive = false }: { isLast?: boolean, isLive?: boolean }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '40px' }}>
+    <div style={{ 
+      width: '100%', 
+      height: isLast ? '280px' : '100px', 
+      borderRight: isLive ? '2px solid #ef4444' : '2px solid #334155', 
+      borderTop: isLive ? '2px solid #ef4444' : '2px solid #334155', 
+      borderBottom: '2px solid #334155', 
+      margin: '1rem 0',
+      borderTopRightRadius: '8px',
+      borderBottomRightRadius: '8px',
+      boxShadow: isLive ? 'inset -5px 0 10px -5px rgba(239,68,68,0.5)' : 'none'
+    }}></div>
+  </div>
+);
+
+const StraightLine = ({ isLive = false }) => (
+  <div style={{ display: 'flex', alignItems: 'center', width: '40px' }}>
+    <div style={{ 
+      width: '100%', 
+      height: '2px', 
+      backgroundColor: isLive ? '#ef4444' : '#334155',
+      boxShadow: isLive ? '0 0 10px rgba(239,68,68,0.8)' : 'none'
+    }}></div>
+  </div>
+);
+
 export default function TournamentPage() {
   const t = useTranslations('TournamentPage');
 
@@ -66,33 +93,6 @@ export default function TournamentPage() {
     { id: 'f1', status: 'upcoming', team1: { name: 'TBD', score: null, logoColor: '#94a3b8' }, team2: { name: 'TBD', score: null, logoColor: '#94a3b8' } },
   ];
 
-  // Helper for drawing connecting lines
-  const Connector = ({ isLast = false, isLive = false }: { isLast?: boolean, isLive?: boolean }) => (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '40px' }}>
-      <div style={{ 
-        width: '100%', 
-        height: isLast ? '280px' : '100px', 
-        borderRight: isLive ? '2px solid #ef4444' : '2px solid #334155', 
-        borderTop: isLive ? '2px solid #ef4444' : '2px solid #334155', 
-        borderBottom: '2px solid #334155', 
-        margin: '1rem 0',
-        borderTopRightRadius: '8px',
-        borderBottomRightRadius: '8px',
-        boxShadow: isLive ? 'inset -5px 0 10px -5px rgba(239,68,68,0.5)' : 'none'
-      }}></div>
-    </div>
-  );
-
-  const StraightLine = ({ isLive = false }) => (
-    <div style={{ display: 'flex', alignItems: 'center', width: '40px' }}>
-      <div style={{ 
-        width: '100%', 
-        height: '2px', 
-        backgroundColor: isLive ? '#ef4444' : '#334155',
-        boxShadow: isLive ? '0 0 10px rgba(239,68,68,0.8)' : 'none'
-      }}></div>
-    </div>
-  );
 
   return (
     <div className="container" style={{ padding: '3rem 0', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

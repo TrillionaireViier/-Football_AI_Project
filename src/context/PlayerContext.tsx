@@ -52,7 +52,7 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
           if (res.ok) {
             const data = await res.json();
             if (data.length > 0) {
-              setPlayers(data.map((p: any) => ({ ...p, team: p.team || user.team_id })));
+              setPlayers(data.map((p: Player) => ({ ...p, team: p.team || user.team_id })));
             } else if (data && !Array.isArray(data)) {
                // In case API returns something else, ignore
             }
