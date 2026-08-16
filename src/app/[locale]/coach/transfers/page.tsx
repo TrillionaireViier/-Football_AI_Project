@@ -1,32 +1,35 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 export default function TransfersPage() {
+  const t = useTranslations('TransfersPage');
+
   const squadValues = [
-    { name: 'Микола Шапаренко', value: '€18,000,000', trend: '+15%', potential: 'Елітний', status: 'Основа' },
-    { name: 'Володимир Бражко', value: '€7,000,000', trend: '+25%', potential: 'Елітний', status: 'Основа' },
-    { name: 'Андрій Ярмоленко', value: '€2,000,000', trend: '-10%', potential: 'Спадає', status: 'Ротація' },
+    { name: t('shaparenko'), value: '€18,000,000', trend: '+15%', potential: t('potentialElite'), potentialKey: 'Elite' },
+    { name: t('brazhko'), value: '€7,000,000', trend: '+25%', potential: t('potentialElite'), potentialKey: 'Elite' },
+    { name: t('yarmolenko'), value: '€2,000,000', trend: '-10%', potential: t('potentialDeclining'), potentialKey: 'Declining' },
   ];
 
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
-          <h1 className="title" style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>ШІ Трансфери та Ринок</h1>
-          <p className="subtitle">ШІ-аналіз вартості гравців та ринкові рекомендації.</p>
+          <h1 className="title" style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{t('title')}</h1>
+          <p className="subtitle">{t('subtitle')}</p>
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
         <div className="glass-panel" style={{ gridColumn: '1 / -1' }}>
-          <h2 style={{ marginBottom: '1.5rem', color: '#f8fafc' }}>📈 Ринкова Вартість Складу</h2>
+          <h2 style={{ marginBottom: '1.5rem', color: '#f8fafc' }}>{t('squadValueTitle')}</h2>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--surface-border)', color: 'var(--text-muted)' }}>
-                  <th style={{ padding: '1rem' }}>Гравець</th>
-                  <th style={{ padding: '1rem' }}>Оцін. Вартість</th>
-                  <th style={{ padding: '1rem' }}>Тренд</th>
-                  <th style={{ padding: '1rem' }}>Потенціал</th>
+                  <th style={{ padding: '1rem' }}>{t('colPlayer')}</th>
+                  <th style={{ padding: '1rem' }}>{t('colEstValue')}</th>
+                  <th style={{ padding: '1rem' }}>{t('colTrend')}</th>
+                  <th style={{ padding: '1rem' }}>{t('colPotential')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,8 +43,8 @@ export default function TransfersPage() {
                         padding: '0.25rem 0.75rem',
                         borderRadius: '20px',
                         fontSize: '0.875rem',
-                        background: p.potential === 'Елітний' ? 'rgba(167, 139, 250, 0.2)' : p.potential === 'Високий' ? 'rgba(74, 222, 128, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-                        color: p.potential === 'Елітний' ? '#a78bfa' : p.potential === 'Високий' ? '#4ade80' : '#fca5a5'
+                        background: p.potentialKey === 'Elite' ? 'rgba(167, 139, 250, 0.2)' : p.potentialKey === 'High' ? 'rgba(74, 222, 128, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                        color: p.potentialKey === 'Elite' ? '#a78bfa' : p.potentialKey === 'High' ? '#4ade80' : '#fca5a5'
                       }}>
                         {p.potential}
                       </span>
@@ -55,32 +58,32 @@ export default function TransfersPage() {
 
         <div className="glass-panel" style={{ borderTop: '4px solid #ef4444' }}>
           <h2 style={{ marginBottom: '1.5rem', color: '#fca5a5', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            🔻 ШІ Рекомендує: Продати
+            {t('sellTitle')}
           </h2>
           <div style={{ background: 'rgba(239, 68, 68, 0.1)', padding: '1.5rem', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
-            <h3 style={{ color: 'white', marginBottom: '0.5rem' }}>Андрій Ярмоленко</h3>
+            <h3 style={{ color: 'white', marginBottom: '0.5rem' }}>{t('yarmolenko')}</h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-              <strong>Причина ШІ:</strong> Фізичні показники (швидкість, витривалість) стабільно погіршуються протягом останніх 5 матчів. Ринкова вартість знижується. Оптимальний час для продажу або звільнення бюджету.
+              <strong>{t('aiReasonLabel')}</strong> {t('sellReason')}
             </p>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(239, 68, 68, 0.2)' }}>
-              <span style={{ color: '#fca5a5', fontWeight: 'bold' }}>Оцін. сума: €2.0M</span>
-              <button className="btn-primary" style={{ padding: '0.5rem 1rem', background: '#ef4444', fontSize: '0.875rem' }}>Виставити на продаж</button>
+              <span style={{ color: '#fca5a5', fontWeight: 'bold' }}>{t('estPrice', { value: '€2.0M' })}</span>
+              <button className="btn-primary" style={{ padding: '0.5rem 1rem', background: '#ef4444', fontSize: '0.875rem' }}>{t('listForSale')}</button>
             </div>
           </div>
         </div>
 
         <div className="glass-panel" style={{ borderTop: '4px solid #4ade80' }}>
           <h2 style={{ marginBottom: '1.5rem', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            🎯 ШІ Рекомендує: Купити
+            {t('buyTitle')}
           </h2>
           <div style={{ background: 'rgba(74, 222, 128, 0.1)', padding: '1.5rem', borderRadius: '8px', border: '1px solid rgba(74, 222, 128, 0.3)' }}>
-            <h3 style={{ color: 'white', marginBottom: '0.5rem' }}>Віктор Циганков</h3>
+            <h3 style={{ color: 'white', marginBottom: '0.5rem' }}>{t('tsygankov')}</h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-              <strong>Причина ШІ:</strong> Ідеально підходить для ролі правого вінгера у пресинговій системі. Елітна статистика навісів та висока прогнозована хімія з Шапаренком.
+              <strong>{t('aiReasonLabel')}</strong> {t('buyReason')}
             </p>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(74, 222, 128, 0.2)' }}>
-              <span style={{ color: '#4ade80', fontWeight: 'bold' }}>Оцін. сума: €25.0M</span>
-              <button className="btn-primary" style={{ padding: '0.5rem 1rem', background: '#22c55e', fontSize: '0.875rem' }}>Детальний скаутинг</button>
+              <span style={{ color: '#4ade80', fontWeight: 'bold' }}>{t('estPrice', { value: '€25.0M' })}</span>
+              <button className="btn-primary" style={{ padding: '0.5rem 1rem', background: '#22c55e', fontSize: '0.875rem' }}>{t('detailedScouting')}</button>
             </div>
           </div>
         </div>

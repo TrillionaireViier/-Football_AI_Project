@@ -157,5 +157,29 @@
     "parentsContact": "Parents Contact Info",
     "mother": "Mother",
     "father": "Father"
+  },
+  "TransfersPage": {
+    "title": "AI Transfers & Market",
+    "subtitle": "AI player valuation and market recommendations.",
+    "squadValueTitle": "📈 Squad Market Value",
+    "colPlayer": "Player",
+    "colEstValue": "Est. Value",
+    "colTrend": "Trend",
+    "colPotential": "Potential",
+    "potentialElite": "Elite",
+    "potentialHigh": "High",
+    "potentialDeclining": "Declining",
+    "sellTitle": "🔻 AI Recommends: Sell",
+    "aiReasonLabel": "AI Reason:",
+    "sellReason": "Physical attributes (pace, stamina) have consistently declined over the last 5 matches. Market value is dropping. Optimal time to sell or free up wage budget.",
+    "estPrice": "Est. Value: {value}",
+    "listForSale": "List for Sale",
+    "buyTitle": "🎯 AI Recommends: Buy",
+    "buyReason": "Perfect fit for the right winger role in a pressing system. Elite crossing stats and high projected chemistry with Shaparenko.",
+    "detailedScouting": "Detailed Scouting",
+    "shaparenko": "Mykola Shaparenko",
+    "brazhko": "Volodymyr Brazhko",
+    "yarmolenko": "Andriy Yarmolenko",
+    "tsygankov": "Viktor Tsygankov"
   }
 }
