@@ -95,7 +95,13 @@
     "yourPlayers": "Your Players",
     "loading": "Loading players...",
     "noPlayers": "No players added yet.",
-    "delete": "Delete"
+    "delete": "Delete",
+    "addPlayer": "Add Player",
+    "cancel": "Cancel",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "position": "Position",
+    "save": "Save"
   },
   "OwnerPage": {
     "title": "Presidential Suite",
