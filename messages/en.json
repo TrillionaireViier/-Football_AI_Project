@@ -101,7 +101,10 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "position": "Position",
-    "save": "Save"
+    "save": "Save",
+    "team": "Team:",
+    "kitNumber": "Kit #{number}",
+    "playerAddedSuccess": "Player successfully added!"
   },
   "OwnerPage": {
     "title": "Presidential Suite",

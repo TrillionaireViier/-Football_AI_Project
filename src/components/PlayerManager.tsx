@@ -88,7 +88,9 @@ export default function PlayerManager() {
                 <img src={p.photoUrl} alt={p.name} style={{ width: 40, height: 40, borderRadius: '50%' }} />
                 <div>
                   <strong>{p.name}</strong> - {p.position}
-                  <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>Футболка #{p.number || 'N/A'}</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                    {t('kitNumber', { number: p.number || 'N/A' })} • {t('team')} {p.team || 'N/A'}
+                  </div>
                 </div>
               </div>
               <button onClick={() => p.id && deletePlayer(String(p.id))} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer' }}>{t('delete')}</button>
@@ -122,7 +124,7 @@ export default function PlayerManager() {
             fontFamily: 'system-ui, -apple-system, sans-serif'
           }}>
             <span style={{ fontSize: '1.2rem' }}>✅</span>
-            <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>Гравця успішно додано!</span>
+            <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>{t('playerAddedSuccess')}</span>
           </div>
         </>
       )}

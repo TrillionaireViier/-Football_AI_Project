@@ -124,7 +124,10 @@
     "save": "Зберегти",
     "loading": "Завантаження гравців...",
     "noPlayers": "Гравців ще немає.",
-    "delete": "Видалити"
+    "delete": "Видалити",
+    "team": "Команда:",
+    "kitNumber": "Футболка #{number}",
+    "playerAddedSuccess": "Гравця успішно додано!"
   },
 
   "PlayersPage": {
